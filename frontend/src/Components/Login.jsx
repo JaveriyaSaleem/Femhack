@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ const Login = () => {
       setLoading(true);
 
       // Check if user already exists
-      const responseGet = await axios.get("http://localhost:5000/signup");
+      const responseGet = await axios.get(`${apiUrl}/signup`);
       const user = responseGet.data.find(user => user.email === data.email);
       const checkEmail = responseGet.data.find(checkEmail => checkEmail.email === data.email || checkEmail.password ==data.password);
       if (!user) {
