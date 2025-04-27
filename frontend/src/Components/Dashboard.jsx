@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import TaskCard from './TaskCard';
+import LogoutBtn from './LogoutBtn';
 
 function Dashboard() {
   const [user,setUser] = useState()
@@ -80,9 +81,10 @@ function Dashboard() {
 
   return (
     <div className="p-8 bg-pink-50 min-h-screen flex flex-col items-center">
+      <LogoutBtn/> 
       <h1 className="text-4xl text-pink-500 font-bold mb-8">Task Board</h1>
 
-      {/* New task input */}
+  {/* add task  */}
       <div className="flex flex-col gap-2 mb-8 w-96">
         <input
           type="text"
@@ -106,8 +108,8 @@ function Dashboard() {
         </button>
       </div>
 
-      {/* Task columns */}
-      <div className="grid grid-cols-3 gap-4 w-full">
+      {/* Task column where my task appear */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
         {['To Do', 'In Progress', 'Done'].map((stage) => (
           <div key={stage} className="bg-white p-4 rounded-lg shadow-md">
             <h2 className="text-xl font-bold text-center mb-4">{stage}</h2>
