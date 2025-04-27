@@ -15,7 +15,7 @@ const Signup = () => {
       setLoading(true);
 
       // Check if user already exists
-      const responseGet = await axios.get(`${apiUrl}/api/signup`);
+      const responseGet = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/signup`);
       console.log(responseGet.data)
       const user = responseGet.data.find(user => user.email === data.email);
 
@@ -27,7 +27,7 @@ const Signup = () => {
       }
 
       // If user doesn't exist, create new user
-      const responsePost = await axios.post(`${apiUrl}/api/signup`, data);
+      const responsePost = await axios.post(`https://backend-of-femhack-production.up.railway.app/api/signup`, data);
       setLoading(false);
       alert("Signup successful!");
       console.log(responsePost.data);

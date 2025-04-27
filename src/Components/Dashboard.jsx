@@ -19,7 +19,7 @@ function Dashboard() {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/api/task`);
+      const res = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/task`);
       console.log(res.data);  // Log the response to check data
       setTasks(res.data);
     } catch (err) {
@@ -31,7 +31,7 @@ function Dashboard() {
     if (newTask.title.trim() === '' || newTask.description.trim() === '') return;
     console.log(newTask)
     const userId = localStorage.getItem("token");
-  let response = await axios.get(`${apiUrl}/api/signup`)
+  let response = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/signup`)
   console.log(response.data[0].token)
   if (response.data){
     const user = response.data.find((user) => user.token === userId);
@@ -39,7 +39,7 @@ function Dashboard() {
     if (user) {
       console.log(user.email)
       try {
-        const response = await axios.post(`${apiUrl}/api/task`, {
+        const response = await axios.post(`https://backend-of-femhack-production.up.railway.app/api/task`, {
           title: newTask.title,
           description: newTask.description,
           status: 'To Do',
@@ -71,12 +71,12 @@ function Dashboard() {
 
   const changeStatus = async (id, newStatus) => {
     console.log(`Changing task ${id} status to ${newStatus}`);  // Log the task update
-    await axios.put(`${apiUrl}/api/task/${id}`, { status: newStatus });
+    await axios.put(`https://backend-of-femhack-production.up.railway.app/api/task/${id}`, { status: newStatus });
     fetchTasks();  // Refetch the tasks after status change
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(`${apiUrl}/api/task/${id}`);
+    await axios.delete(`https://backend-of-femhack-production.up.railway.app/api/task/${id}`);
     fetchTasks();
   };
 
