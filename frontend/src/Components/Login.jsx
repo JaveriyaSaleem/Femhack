@@ -24,7 +24,7 @@ const Login = () => {
       setLoading(true);
 
       // Check if user already exists
-      const responseGet = await axios.get(`/signup`);
+      const responseGet = await axios.get(`${apiUrl}/api/signup`);
       const user = responseGet.data.find(user => user.email === data.email);
       const checkEmail = responseGet.data.find(checkEmail => checkEmail.email === data.email || checkEmail.password ==data.password);
       if (!user) {

@@ -22,8 +22,8 @@ app.use(
 	}),
 );
 app.use(express.json())
-app.use('/signup', SignupRouter)
-app.use('/task', taskRoute)
+app.use('/api/signup', SignupRouter)
+app.use('/api/task', taskRoute)
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })

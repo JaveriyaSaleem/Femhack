@@ -13,7 +13,8 @@ router.get('/', async(req, res) => {
 
   try{
     const users = await signupModal.find(); 
-    res.json(users); // sending all products as JSON
+    res.json(users);
+    console.log(users) // sending all products as JSON
   }catch(e){
     res.status(500).json({ message: e.message });
   }
