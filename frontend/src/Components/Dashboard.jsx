@@ -19,7 +19,7 @@ function Dashboard() {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/task`);
+      const res = await axios.get(`/task`);
       console.log(res.data);  // Log the response to check data
       setTasks(res.data);
     } catch (err) {
@@ -31,7 +31,7 @@ function Dashboard() {
     if (newTask.title.trim() === '' || newTask.description.trim() === '') return;
     console.log(newTask)
     const userId = localStorage.getItem("token");
-  let response = await axios.get(`${apiUrl}/signup`)
+  let response = await axios.get(`/signup`)
   console.log(response.data[0].token)
   if (response.data){
     const user = response.data.find((user) => user.token === userId);
@@ -39,7 +39,7 @@ function Dashboard() {
     if (user) {
       console.log(user.email)
       try {
-        const response = await axios.post(`${apiUrl}/task`, {
+        const response = await axios.post(`/task`, {
           title: newTask.title,
           description: newTask.description,
           status: 'To Do',
@@ -71,12 +71,12 @@ function Dashboard() {
 
   const changeStatus = async (id, newStatus) => {
     console.log(`Changing task ${id} status to ${newStatus}`);  // Log the task update
-    await axios.put(`${apiUrl}/task/${id}`, { status: newStatus });
+    await axios.put(`/task/${id}`, { status: newStatus });
     fetchTasks();  // Refetch the tasks after status change
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(`${apiUrl}/task/${id}`);
+    await axios.delete(`/task/${id}`);
     fetchTasks();
   };
 

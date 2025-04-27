@@ -15,7 +15,7 @@ const Signup = () => {
       setLoading(true);
 
       // Check if user already exists
-      const responseGet = await axios.get(`${apiUrl}/signup`);
+      const responseGet = await axios.get(`/signup`);
       console.log(responseGet.data)
       const user = responseGet.data.find(user => user.email === data.email);
 
@@ -27,7 +27,7 @@ const Signup = () => {
       }
 
       // If user doesn't exist, create new user
-      const responsePost = await axios.post(`${apiUrl}/signup`, data);
+      const responsePost = await axios.post(`/signup`, data);
       setLoading(false);
       alert("Signup successful!");
       console.log(responsePost.data);

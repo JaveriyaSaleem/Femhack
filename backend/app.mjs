@@ -9,7 +9,18 @@ const port = 5000
 import path from "path"
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use(cors())
+app.use(
+	cors({
+		origin: ['http://localhost:5174',
+			 'http://localhost:5173',
+			'https://femhack-production.up.railway.app/',
+			
+			],
+		methods: ['GET', 'PUT', 'POST', 'DELETE'],
+		credentials: true,
+		allowedHeaders: ['Content-Type', 'Authorization'],
+	}),
+);
 app.use(express.json())
 app.use('/signup', SignupRouter)
 app.use('/task', taskRoute)
