@@ -1,6 +1,9 @@
 import express from "express"
+import dotenv from "dotenv";
+import jwt from 'jsonwebtoken';
 import signupModal from '../Models/SignupModal.js'
 const router = express.Router()
+dotenv.config();
 
 
 
@@ -20,20 +23,28 @@ router.post('/', async (req, res) => {
   try{
     const existingUser = await signupModal.findOne({ email: req.body.email });
     if (existingUser) {
-        // If the user already exists, send a response and do not create the user
         return res.status(400).json({ message: "User already exists. Please log in." });
       }
-    let a = await signupModal.create({
+      // token 
+      const token = jwt.sign(
+        { email: req.body.email },
+        process.env.JWT_SECRET, 
+        { expiresIn: "1h" }
+      );
+      
+    let newUser = await signupModal.create({
       userName: req.body.username,
       email: req.body.email,
-      password:req.body.password
+      password:req.body.password,
+      token: token
       
     })
-// res.send("post req")
-    res.send(a)
-    console.log(req.body)
+
+    console.log("Generated Token:", token);
+    res.json({ newUser, token });
   }catch(e){
-    console.log(e)
+    console.log(e);
+  res.status(500).json({ message: "Error occurred while creating user" });
   }
 
 })
