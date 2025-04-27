@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [tasks, setTasks] = useState([]);
@@ -16,6 +18,7 @@ const Dashboard = () => {
 
   // Handle form submission
   const onSubmit = async (data) => {
+    const history = useHistory();
     console.log(data); // show data in console
     const responsePost = await axios.post('http://localhost:5000/task', { ...data, status: 'in-progress' });
     console.log(responsePost);
@@ -56,10 +59,17 @@ const Dashboard = () => {
         console.error('Error updating task status:', error);
       }
     };
-
+    const handleLogout = () => {
+      // Remove the token from localStorage
+      localStorage.removeItem('token'); 
+  
+      navigate('/login');
+    };
   return (
     <main className=''>
+
       <h1 className='font-bold text-[30px] ps-4 border'>Task Manager</h1>
+      <button className='border text-black cursor-pointer' onClick={handleLogout}>logout</button>
       <div className='grid grid-cols-12 py-5 px-5 h-screen'>
         {/* left side */}
         <div className='col-span-2 flex flex-col justify-start items-start gap-3 border-e'>
