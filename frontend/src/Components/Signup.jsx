@@ -8,8 +8,8 @@ import axios from "axios"
 const Signup = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [showPassword, setShowPassword] = useState(false);
-  const onSubmit = async(data) => {
     const navigate = useNavigate();
+  const onSubmit = async(data) => {
     try {
         let userExists = false;
         // checking if user exists 
@@ -19,7 +19,7 @@ const Signup = () => {
           
           if (user) {
             alert("User already exists. Please log in.");
-            navigate("/Login.jsx");
+            navigate("./Login");
             userExists = true;
             break; 
           }
