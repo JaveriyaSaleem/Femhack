@@ -39,6 +39,7 @@ const Login = () => {
           alert("Login successful! 🥰");
           localStorage.setItem("token", user.token);
           console.log(user.token);
+          
           navigate("/dashboard");
         }}
 

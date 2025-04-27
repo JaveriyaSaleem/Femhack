@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 const taskSchema = new mongoose.Schema({
-    TaskName: String,
-    TaskDetail:String,
-    TaskStatus:String
+  title: String,
+  description:String,
+  status:String,
+  assignedTo: String
     
   });
-  const Task = mongoose.model('taskData', taskSchema);
+  const Task = mongoose.model('Task', taskSchema);
   export default Task
