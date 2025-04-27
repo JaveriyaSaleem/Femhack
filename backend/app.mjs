@@ -4,6 +4,9 @@ import SignupRouter from "./Router/SignupRouter.js"
 import connectToDb from "./db/db.js"
 const app = express()
 const port = 5000
+import path from "path"
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, 'dist')));
 app.use(cors())
 app.use(express.json())
 app.use('/signup', SignupRouter)
