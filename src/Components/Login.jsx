@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -28,16 +29,27 @@ const Login = () => {
       const user = responseGet.data.find(user => user.email === data.email);
       const checkEmail = responseGet.data.find(checkEmail => checkEmail.email === data.email || checkEmail.password ==data.password);
       if (!user) {
-        // User with that email doesn't exist
-        alert("User not found, please create an account 🥺");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: "User not found please create an account",
+        });
         navigate("/");
       } else {
         if (user.password !== data.password) {
-          // Email is correct but password is wrong
-          alert("Incorrect credentials 😭");
+        
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: "Incorrect Credentials",
+                  });
+                  setLoading(false);
         } else {
           // Both email and password are correct
-          alert("Login successful! 🥰");
+                 Swal.fire({
+                   icon: 'success',
+                   title: 'Login Successfully',
+                 });
           localStorage.setItem("token", user.token);
           console.log(user.token);
           
@@ -53,7 +65,11 @@ const Login = () => {
         navigate("/login");
       } else {
         console.log(e);
-        alert("Something went wrong. Please try again.");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: "Something Went Wrong Please Try Again",
+        });
       }
     }
   };

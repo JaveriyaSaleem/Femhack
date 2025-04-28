@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import TaskCard from './TaskCard';
 import LogoutBtn from './LogoutBtn';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
-  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+   const navigate = useNavigate();
   const[assignTask,setAssignTask]=useState([])
-  const [user,setUser] = useState()
-  const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState({
     title: '',
     description: '',
@@ -21,36 +21,51 @@ function Dashboard() {
   const fetchTasks = async () => {
     try {
       const res = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/signup`);
-      console.log(res.data); 
+      // console.log(res.data); 
       const userId = localStorage.getItem("token");
       const user = res.data.find((user) => user.token === userId ) 
       if(user){
         const response = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/task`);
         const userTask = response.data.filter((task)=>task.assignedTo=== user.email)
         setAssignTask(userTask)
-        console.log(response.data[19])
+        // console.log(response.data[19])
       }else{
         console.log("not found")
+        navigate('/login');
       }
       
-      console.log(user.email)
-      setTasks(res.data);
+      // console.log(user.email)
     } catch (err) {
-      console.error("Error fetching tasks:", err);
+      // console.error("Error fetching tasks:", err);
     }
   };
 
   const addTask = async () => {
+    if (newTask.title.trim() === '' || newTask.description.trim() === '') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops!',
+        text: 'Please fill out both title and description!',
+      });
+      return;
+    }
     if (newTask.title.trim() === '' || newTask.description.trim() === '') return;
-    console.log(newTask)
+    // console.log(newTask)
     const userId = localStorage.getItem("token");
+    Swal.fire({
+      title: 'Adding your task...',
+      text: 'Please wait💖',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
   let response = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/signup`)
-  console.log(response.data[0].token)
   if (response.data){
     const user = response.data.find((user) => user.token === userId);
     
     if (user) {
-      console.log(user.email)
+      // console.log(user.email)
       try {
         const response = await axios.post(`https://backend-of-femhack-production.up.railway.app/api/task`, {
           title: newTask.title,
@@ -58,14 +73,21 @@ function Dashboard() {
           status: 'To Do',
           assignedTo: user.email
         });
-        console.log("Task created:", response.data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Task Added!',
+          text: 'Your task has been successfully added 💖',
+        });
         setNewTask({ title: '', description: '', assignedTo: '' });
         fetchTasks();
       } catch (error) {
-        console.error("Error creating task:", error.response ? error.response.data : error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: error.response ? error.response.data : error.message,
+        });
       }
-      console.log("User found:", user);
-      setUser(user); 
+      // console.log("User found:", user);
       
     } else {
       console.log("User with matching token not found.");
@@ -75,7 +97,7 @@ function Dashboard() {
   }
 
     if (!userId) {
-      console.log("User not logged in");
+      // console.log("User not logged in");
       return;
     }
   
@@ -83,12 +105,13 @@ function Dashboard() {
   };
 
   const changeStatus = async (id, newStatus) => {
-    console.log(`Changing task ${id} status to ${newStatus}`);  // Log the task update
+    // console.log(`Changing task ${id} status to ${newStatus}`); 
     await axios.put(`https://backend-of-femhack-production.up.railway.app/api/task/${id}`, { status: newStatus });
     fetchTasks();  // Refetch the tasks after status change
   };
 
   const deleteTask = async (id) => {
+
     await axios.delete(`https://backend-of-femhack-production.up.railway.app/api/task/${id}`);
     fetchTasks();
   };

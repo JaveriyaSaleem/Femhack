@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
+import { MdAddTask } from "react-icons/md";
 
 const Signup = () => {
-  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
 
   const onSubmit = async (data) => {
     try {
@@ -16,12 +18,14 @@ const Signup = () => {
 
       // Check if user already exists
       const responseGet = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/signup`);
-      console.log(responseGet.data)
+      // console.log(responseGet.data)
       const user = responseGet.data.find(user => user.email === data.email);
 
       if (user) {
         setLoading(false);
-        alert("User already exists. Please log in.");
+        Swal.fire({
+          text: "User already exists please log in!",
+        });
         navigate("/login");
         return;
       }
@@ -29,7 +33,11 @@ const Signup = () => {
       // If user doesn't exist, create new user
       const responsePost = await axios.post(`https://backend-of-femhack-production.up.railway.app/api/signup`, data);
       setLoading(false);
-      alert("Signup successful!");
+      Swal.fire({
+        icon: 'success',
+        title: 'Signup Successfully',
+        text: 'Please enter your credentials again at login page! 💖',
+      });
       console.log(responsePost.data);
       navigate("/login");
       
@@ -49,7 +57,7 @@ const Signup = () => {
     <section className="relative py-6">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
         <div className="">
-          <h1 className='text-[32px] font-extrabold boldFont w-40'>Trello</h1>
+          <h1 className='text-[32px] font-extrabold boldFont mb-10'>Task Manager</h1> 
         </div>
 
         {loading ? (
