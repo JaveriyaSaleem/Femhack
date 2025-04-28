@@ -81,12 +81,15 @@ function Dashboard() {
   };
 
   return (
-    <div className="p-8 bg-pink-50 min-h-screen flex flex-col items-center">
+    <div className="bg-pink-50 min-h-screen flex flex-col items-center p-4">
+      <div className='flex items-center  justify-between w-full mb-10'>
+      <h1 className="text-4xl text-pink-500 font-bold ">Task Board</h1>
       <LogoutBtn/> 
-      <h1 className="text-4xl text-pink-500 font-bold mb-8">Task Board</h1>
+      </div>
 
   {/* add task  */}
       <div className="flex flex-col gap-2 mb-8 w-96">
+        <h1 className='text-pink-500'>Add New Todo:</h1>
         <input
           type="text"
           value={newTask.title}
