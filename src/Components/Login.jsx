@@ -51,7 +51,7 @@ const Login = () => {
                    title: 'Login Successfully',
                  });
           localStorage.setItem("token", user.token);
-          console.log(user.token);
+          // console.log(user.token);
           
           navigate("/dashboard");
         }}
@@ -75,10 +75,10 @@ const Login = () => {
   };
 
   return (
-    <section className="relative py-6">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
-        <div className="">
-          <h1 className='text-[32px] font-extrabold boldFont w-40'></h1>
+    <section className="relative py-6 bg-pink-50 min-h-screen">
+      <div className="flex flex-col items-center justify-center px-2 sm:px-6 py-8 mx-auto lg:py-0">
+        <div className=" pb-10">
+        <h1 className="text-3xl sm:text-4xl text-pink-500 font-bold ">Task Board</h1>
         </div>
 
         {loading ? (
@@ -87,7 +87,7 @@ const Login = () => {
             <p className="mt-4 text-black font-semibold">Please wait... Redirecting you 🥹</p>
           </div>
         ) : (
-          <div className="w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+          <div className="bg-white w-full  rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
             <div className="p-6 space-y-2 md:space-y-2 sm:p-8">
               <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Sign in
