@@ -5,6 +5,7 @@ import LogoutBtn from './LogoutBtn';
 
 function Dashboard() {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  const[assignTask,setAssignTask]=useState([])
   const [user,setUser] = useState()
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState({
@@ -19,8 +20,20 @@ function Dashboard() {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/task`);
-      console.log(res.data);  // Log the response to check data
+      const res = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/signup`);
+      console.log(res.data); 
+      const userId = localStorage.getItem("token");
+      const user = res.data.find((user) => user.token === userId ) 
+      if(user){
+        const response = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/task`);
+        const userTask = response.data.filter((task)=>task.assignedTo=== user.email)
+        setAssignTask(userTask)
+        console.log(response.data[19])
+      }else{
+        console.log("not found")
+      }
+      
+      console.log(user.email)
       setTasks(res.data);
     } catch (err) {
       console.error("Error fetching tasks:", err);
@@ -117,7 +130,7 @@ function Dashboard() {
         {['To Do', 'In Progress', 'Done'].map((stage) => (
           <div key={stage} className="bg-white p-4 rounded-lg shadow-md">
             <h2 className="text-xl font-bold text-center mb-4">{stage}</h2>
-            {tasks.filter((task) => task.status === stage).map((task) => (
+            {assignTask.filter((task) => task.status === stage).map((task) => (
   <TaskCard key={task._id} task={task} changeStatus={changeStatus} deleteTask={deleteTask} />
 ))}
           </div>
