@@ -1,12 +1,59 @@
-# React + Vite
+# 📝 MERN Task Manager App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-featured task management application built using the **MERN stack** (MongoDB, Express.js, React, Node.js) with complete user authentication and task handling functionality.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+### ✅ User Authentication
+- Signup with secure password hashing
+- Login with error handling and validation
+- Logout and session/token management
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 📋 Task Management
+- Create new tasks with title & description
+- Read tasks in your personal dashboard
+- Mark task status: `In Progress`, `Done`, or `todo`
+- Delete tasks with confirmation dialogs
+
+### 🎨 User Interface
+- Fully responsive UI using **Tailwind CSS**
+- Beautiful loading animations and alerts (using SweetAlert2)
+
+
+---
+
+## 🛠️ Tech Stack
+
+### 🔗 Frontend
+- React.js (with hooks and React Router)
+- Axios for HTTP requests
+- React Hook Form for input validation
+- SweetAlert2 for modals and notifications
+
+### 🧠 Backend
+- Node.js with Express
+- MongoDB (using Mongoose)
+- bcrypt for password hashing
+- JSON Web Tokens (JWT) for auth
+
+---
+
+## 🧪 Upcoming Features
+
+- [ ] Updating profile
+- [ ] Search/filter tasks
+- [ ] Drag & drop task reordering
+- [ ] Task categories/tags
+- [ ] Profile image upload
+- [ ] Light and Dark Mode functionality
+- [ ] Password reset with email
+
+---
+
+## 🚀 Getting Started
+
+1. Clone the repo
+   ```bash
+   git clone https://github.com/JaveriyaSaleem/Femhack.git
