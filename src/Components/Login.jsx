@@ -35,16 +35,18 @@ const Login = () => {
           text: "User not found please create an account",
         });
         navigate("/");
-      } else {
-        if (user.password !== data.password) {
+      } 
+      // else {
+      //   if (user.password !== data.password) {
         
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: "Incorrect Credentials",
-                  });
-                  setLoading(false);
-        } else {
+      //             Swal.fire({
+      //               icon: 'error',
+      //               title: 'Error!',
+      //               text: "Incorrect Credentials",
+      //             });
+      //             setLoading(false);
+      //   }
+         else {
           // Both email and password are correct
                  Swal.fire({
                    icon: 'success',
@@ -57,8 +59,8 @@ const Login = () => {
         }}
 
 
-      
-    } catch (e) {
+      // }  
+     catch (e) {
       setLoading(false);
       if (e.response && e.response.status === 400) {
         alert(e.response.data.message);

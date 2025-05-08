@@ -18,7 +18,7 @@ const Signup = () => {
 
       // Check if user already exists
       const responseGet = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/signup`);
-      // console.log(responseGet.data)
+      console.log(responseGet.data)
       const user = responseGet.data.find(user => user.email === data.email);
 
       if (user) {
@@ -31,14 +31,16 @@ const Signup = () => {
       }
 
       // If user doesn't exist, create new user
+      console.log(data)
       const responsePost = await axios.post(`https://backend-of-femhack-production.up.railway.app/api/signup`, data);
       setLoading(false);
+      
       Swal.fire({
         icon: 'success',
         title: 'Signup Successfully',
         text: 'Please enter your credentials again at login page! 💖',
       });
-      // console.log(responsePost.data);
+      console.log(responsePost.data);
       navigate("/login");
       
     } catch (e) {
