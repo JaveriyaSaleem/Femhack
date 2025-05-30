@@ -20,12 +20,12 @@ function Dashboard() {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/signup`);
+      const res = await axios.get(`https://backend-of-femhack.vercel.app/api/signup`);
       // console.log(res.data); 
       const userId = localStorage.getItem("token");
       const user = res.data.find((user) => user.token === userId ) 
       if(user){
-        const response = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/task`);
+        const response = await axios.get(`https://backend-of-femhack.vercel.app/api/task`);
         const userTask = response.data.filter((task)=>task.assignedTo=== user.email)
         setAssignTask(userTask)
         // console.log(response.data[19])
@@ -60,14 +60,14 @@ function Dashboard() {
         Swal.showLoading();
       }
     });
-  let response = await axios.get(`https://backend-of-femhack-production.up.railway.app/api/signup`)
+  let response = await axios.get(`https://backend-of-femhack.vercel.app/api/signup`)
   if (response.data){
     const user = response.data.find((user) => user.token === userId);
     
     if (user) {
       // console.log(user.email)
       try {
-        const response = await axios.post(`https://backend-of-femhack-production.up.railway.app/api/task`, {
+        const response = await axios.post(`https://backend-of-femhack.vercel.app/api/task`, {
           title: newTask.title,
           description: newTask.description,
           status: 'To Do',
@@ -106,13 +106,13 @@ function Dashboard() {
 
   const changeStatus = async (id, newStatus) => {
     // console.log(`Changing task ${id} status to ${newStatus}`); 
-    await axios.put(`https://backend-of-femhack-production.up.railway.app/api/task/${id}`, { status: newStatus });
+    await axios.put(`https://backend-of-femhack.vercel.app/api/task/${id}`, { status: newStatus });
     fetchTasks();  // Refetch the tasks after status change
   };
 
   const deleteTask = async (id) => {
 
-    await axios.delete(`https://backend-of-femhack-production.up.railway.app/api/task/${id}`);
+    await axios.delete(`https://backend-of-femhack.vercel.app/api/task/${id}`);
     fetchTasks();
   };
 
